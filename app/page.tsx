@@ -53,7 +53,7 @@ const matchSearch =
 });
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-gray-800 text-white flex flex-col items-center">
+    <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-gray-800 text-white flex flex-col items-center pt-16">
       
       {/* 🔥 NAVBAR */}
       
@@ -97,7 +97,7 @@ const matchSearch =
   onChange={(e) => setSearch(e.target.value)}
   className="w-full max-w-xl mx-auto block p-4 mb-10 rounded-xl bg-gray-800/60 backdrop-blur-md border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
 />
-<div className="flex gap-4 mb-8">
+<div className="flex justify-center gap-3 flex-wrap mb-10 mt-4">
         {["all", "text", "image", "video"].map(cat => (
           <button
             key={cat}
