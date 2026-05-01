@@ -53,7 +53,7 @@ const matchSearch =
 });
 
   return (
-    <div className="min-h-screen bg-black text-white p-10">
+    <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-gray-800 text-white">
       
       {/* 🔥 NAVBAR */}
       <div className="flex gap-4 mb-8">
@@ -71,10 +71,10 @@ const matchSearch =
           </button>
         ))}
       </div>
-
-      <h1 className="text-4xl font-bold mb-6">
-        🚀 AI Araç Bulucu
-      </h1>
+      
+      <h1 className="text-5xl font-bold mb-6 text-center bg-gradient-to-r from-purple-400 to-blue-500 text-transparent bg-clip-text">
+  🚀 AI Araç Bulucu
+</h1>
       
       <div className="mb-8">
   <h2 className="text-xl mb-4 text-gray-300">
@@ -106,29 +106,45 @@ const matchSearch =
 </div>
 
       <input
-        type="text"
-        placeholder="Örn: logo yapmak, video üretmek..."
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        className="w-full max-w-md p-3 mb-8 rounded-lg bg-gray-800 text-white placeholder-gray-400 outline-none"
-      />
+  type="text"
+  placeholder="AI aracı ara... (logo, video, yazı...)"
+  value={search}
+  onChange={(e) => setSearch(e.target.value)}
+  className="w-full max-w-xl mx-auto block p-4 mb-10 rounded-xl bg-gray-800/60 backdrop-blur-md border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
+/>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 px-4">
         {filteredTools.map(tool => (
           <div
-            key={tool.id}
-            className="bg-gray-900 p-5 rounded-xl shadow-lg hover:scale-105 transition"
-          >
-            <h2 className="text-xl font-semibold">{tool.name}</h2>
-            <p className="text-gray-400">{tool.description}</p>
-
- <Link
-  href={`/tool/${tool.id}`}
-  className="inline-block mt-4 text-blue-400"
+  key={tool.id}
+  className="bg-gray-800/60 backdrop-blur-md border border-gray-700 rounded-2xl p-5 transition transform hover:scale-105 hover:shadow-xl hover:shadow-purple-500/20"
 >
-  Detay →
-</Link>
-          </div>
+  <h3 className="text-xl font-semibold mb-2">
+    {tool.name}
+  </h3>
+
+  <p className="text-gray-400 text-sm">
+    {tool.description}
+  </p>
+
+  <div className="mt-4 flex flex-wrap gap-2">
+    {tool.tags?.map((tag, index) => (
+      <span
+        key={index}
+        className="bg-purple-600/20 text-purple-300 text-xs px-2 py-1 rounded-md"
+      >
+        #{tag}
+      </span>
+    ))}
+  </div>
+
+  <Link
+    href={`/tool/${tool.id}`}
+    className="inline-block mt-4 text-blue-400 hover:underline"
+  >
+    Detay →
+  </Link>
+</div>
         ))}
       </div>
     </div>
