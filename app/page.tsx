@@ -61,7 +61,15 @@ const matchSearch =
   🚀 AI Araç Bulucu
 </h1>
       
-      <div className="mb-8">
+
+      <input
+  type="text"
+  placeholder="AI aracı ara... (logo, video, yazı...)"
+  value={search}
+  onChange={(e) => setSearch(e.target.value)}
+  className="w-full max-w-xl mx-auto block p-4 mb-10 rounded-xl bg-gray-800/60 backdrop-blur-md border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
+/>
+<div className="mb-8">
   <h2 className="text-xl mb-4 text-gray-300">
     Popüler kategoriler
   </h2>
@@ -89,29 +97,6 @@ const matchSearch =
     </button>
   </div>
 </div>
-
-      <input
-  type="text"
-  placeholder="AI aracı ara... (logo, video, yazı...)"
-  value={search}
-  onChange={(e) => setSearch(e.target.value)}
-  className="w-full max-w-xl mx-auto block p-4 mb-10 rounded-xl bg-gray-800/60 backdrop-blur-md border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
-/>
-<div className="flex justify-center gap-3 flex-wrap mb-10 mt-4">
-        {["all", "text", "image", "video"].map(cat => (
-          <button
-            key={cat}
-            onClick={() => setSelectedCategory(cat)}
-            className={`px-4 py-2 rounded-lg transition hover:scale-105 bg-white/10 hover:bg-white/20 ${
-              selectedCategory === cat
-                ? "bg-blue-500"
-                : "bg-gray-800"
-            }`}
-          >
-            {cat.toUpperCase()}
-          </button>
-        ))}
-      </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 px-4">
         {filteredTools.map(tool => (
