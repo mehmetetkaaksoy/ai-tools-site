@@ -53,7 +53,7 @@ const matchSearch =
 });
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-gray-800 text-white">
+    <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-gray-800 text-white flex flex-col items-center">
       
       {/* 🔥 NAVBAR */}
       <div className="flex gap-4 mb-8">
@@ -61,7 +61,7 @@ const matchSearch =
           <button
             key={cat}
             onClick={() => setSelectedCategory(cat)}
-            className={`px-4 py-2 rounded-lg ${
+            className={`px-4 py-2 rounded-lg transition hover:scale-105 bg-white/10 hover:bg-white/20 ${
               selectedCategory === cat
                 ? "bg-blue-500"
                 : "bg-gray-800"
@@ -81,24 +81,24 @@ const matchSearch =
     Popüler kategoriler
   </h2>
 
-  <div className="flex gap-3 flex-wrap">
+  <div className="flex justify-center flex-wrap gap-3 mb-10">
     <button
       onClick={() => setSearch("logo")}
-      className="bg-purple-600 px-4 py-2 rounded-lg hover:bg-purple-700"
+      className="px-4 py-2 rounded-lg transition hover:scale-105 bg-white/10 hover:bg-white/20"
     >
       🎨 Logo Yap
     </button>
 
     <button
       onClick={() => setSearch("video")}
-      className="bg-red-600 px-4 py-2 rounded-lg hover:bg-red-700"
+      className="px-4 py-2 rounded-lg transition hover:scale-105 bg-white/10 hover:bg-white/20"
     >
       🎥 Video Üret
     </button>
 
     <button
       onClick={() => setSearch("writing")}
-      className="bg-green-600 px-4 py-2 rounded-lg hover:bg-green-700"
+      className="px-4 py-2 rounded-lg transition hover:scale-105 bg-white/10 hover:bg-white/20"
     >
       ✍️ Yazı Yaz
     </button>
