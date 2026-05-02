@@ -16,7 +16,7 @@ type Tool = {
 export default function Home() {
   const [tools, setTools] = useState<Tool[]>([]);
   const [search, setSearch] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [selectedCategory, setSelectedCategory] = useState("All");
 
   useEffect(() => {
     const fetchTools = async () => {
@@ -31,7 +31,7 @@ export default function Home() {
 
     fetchTools();
   }, []);
-  const stopWords = ["yapmak", "etmek", "istiyorum", "için"];
+  const stopWords = ["yapmak", "etmek", "istiyorum", "için", "oluşturmak"];
   const filteredTools = tools.filter(tool => {
   const words = search
   .toLowerCase()
@@ -40,14 +40,14 @@ export default function Home() {
   .filter(word => word !== "" && !stopWords.includes(word));
 
 const matchSearch =
-  tool.name.toLowerCase().includes(search.toLowerCase()) ||
-  tool.tags?.some(tag =>
-    words.some(word => tag.toLowerCase().includes(word))
-  );
+    tool.name.toLowerCase().includes(search.toLowerCase()) ||
+    tool.description.toLowerCase().includes(search.toLowerCase()) ||
+    (tool.tags && tool.tags.some((tag) =>
+      tag.toLowerCase().includes(search.toLowerCase())
+    ));
 
   const matchCategory =
-    selectedCategory === "all" ||
-    tool.category === selectedCategory;
+    selectedCategory === "All" || tool.category === selectedCategory;
 
   return matchSearch && matchCategory;
 });
@@ -89,18 +89,7 @@ const matchSearch =
 </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 px-4">
-        {tools
-  .filter((tool) => {
-    const matchesCategory =
-      selectedCategory === "All" || tool.category === selectedCategory;
-
-    const matchesSearch =
-      tool.name.toLowerCase().includes(search.toLowerCase()) ||
-      tool.description.toLowerCase().includes(search.toLowerCase());
-
-    return matchesCategory && matchesSearch;
-  })
-  .map((tool) => (
+        {filteredTools.map((tool) => (
           <div
   key={tool.id}
   className="bg-gray-800/60 backdrop-blur-md border border-gray-700 rounded-2xl p-5 transition transform hover:scale-105 hover:shadow-xl hover:shadow-purple-500/20"
