@@ -90,7 +90,7 @@ const matchSearch =
     </button>
 
     <button
-      onClick={() => setSearch("writing")}
+      onClick={() => setSearch("yazı")}
       className="px-4 py-2 rounded-lg transition hover:scale-105 bg-white/10 hover:bg-white/20"
     >
       ✍️ Yazı Yaz
