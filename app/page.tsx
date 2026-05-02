@@ -31,25 +31,26 @@ export default function Home() {
 
     fetchTools();
   }, []);
-  const stopWords = ["yapmak", "etmek", "istiyorum", "için", "oluşturmak"];
-  const filteredTools = tools.filter(tool => {
-  const words = search
+  const stopWords = ["yapmak", "etmek", "istiyorum", "için"];
+
+const words = search
   .toLowerCase()
   .split(" ")
-  .map(word => word.trim())
-  .filter(word => word !== "" && !stopWords.includes(word));
+  .map(w => w.trim())
+  .filter(w => w && !stopWords.includes(w));
 
-const matchSearch =
-    tool.name.toLowerCase().includes(search.toLowerCase()) ||
-    tool.description.toLowerCase().includes(search.toLowerCase()) ||
-    (tool.tags && tool.tags.some((tag) =>
-      tag.toLowerCase().includes(search.toLowerCase())
-    ));
+const filteredTools = tools.filter((tool) => {
+  const text = `${tool.name} ${tool.description} ${(tool.tags || []).join(" ")}`.toLowerCase();
 
-  const matchCategory =
+  const matchesSearch =
+    words.length === 0
+      ? true
+      : words.some((word) => text.includes(word));
+
+  const matchesCategory =
     selectedCategory === "All" || tool.category === selectedCategory;
 
-  return matchSearch && matchCategory;
+  return matchesSearch && matchesCategory;
 });
 
   return (
