@@ -76,10 +76,10 @@ const matchSearch =
 
   <div className="flex justify-center flex-wrap gap-3 mb-10">
     <button
-      onClick={() => setSearch("logo")}
+      onClick={() => setSearch("görsel")}
       className="px-4 py-2 rounded-lg transition hover:scale-105 bg-white/10 hover:bg-white/20"
     >
-      🎨 Logo Yap
+      🎨 Görsel Oluştur
     </button>
 
     <button
