@@ -9,8 +9,12 @@ import Link from "next/link";
 type Tool = {
   name: string;
   description: string;
-  url: string;
+  longDescription?: string;
+  link: string; // 🔥 BURASI DEĞİŞTİ
   tags?: string[];
+  category?: string;
+  pricing?: string;
+  usage?: string;
 };
 
 export default function ToolPage() {
@@ -45,7 +49,7 @@ export default function ToolPage() {
       
       <div className="max-w-3xl w-full">
 
-        {/* BACK BUTTON */}
+        {/* BACK */}
         <Link href="/" className="text-gray-400 hover:text-white mb-6 inline-block">
           ← Geri dön
         </Link>
@@ -55,10 +59,45 @@ export default function ToolPage() {
           {tool.name}
         </h1>
 
-        {/* DESCRIPTION */}
+        {/* CATEGORY + PRICE */}
+        <div className="flex gap-3 mb-4">
+          {tool.category && (
+            <span className="px-3 py-1 bg-blue-500/20 text-blue-300 rounded-full text-sm">
+              {tool.category}
+            </span>
+          )}
+
+          {tool.pricing && (
+            <span className="px-3 py-1 bg-green-500/20 text-green-300 rounded-full text-sm">
+              {tool.pricing}
+            </span>
+          )}
+        </div>
+
+        {/* SHORT DESC */}
         <p className="text-gray-400 mb-6">
           {tool.description}
         </p>
+
+        {/* 🔥 LONG DESC */}
+        {tool.longDescription && (
+          <div className="mb-8">
+            <h2 className="text-xl font-semibold mb-2">Detaylı Açıklama</h2>
+            <p className="text-gray-300 leading-relaxed">
+              {tool.longDescription}
+            </p>
+          </div>
+        )}
+
+        {/* USAGE */}
+        {tool.usage && (
+          <div className="mb-8">
+            <h2 className="text-xl font-semibold mb-2">Kullanım Alanları</h2>
+            <p className="text-gray-300">
+              {tool.usage}
+            </p>
+          </div>
+        )}
 
         {/* TAGS */}
         <div className="flex gap-2 flex-wrap mb-8">
@@ -72,27 +111,19 @@ export default function ToolPage() {
           ))}
         </div>
 
-        {/* FEATURE BOX */}
-        <div className="bg-white/5 border border-white/10 rounded-xl p-6 mb-8">
-          <h2 className="text-xl font-semibold mb-3">
-            Özellikler
-          </h2>
-
-          <ul className="text-gray-300 space-y-2">
-            <li>• Yapay zeka destekli güçlü sonuçlar</li>
-            <li>• Kullanımı kolay ve hızlı arayüz</li>
-            <li>• Farklı kullanım senaryoları için uygun</li>
-          </ul>
-        </div>
-
-        {/* CTA BUTTON */}
-        <a
-          href={tool.url}
-          target="_blank"
-          className="inline-block px-6 py-3 bg-purple-600 hover:bg-purple-700 rounded-lg transition text-white"
-        >
-          Aracı Kullan →
-        </a>
+        {/* 🔥 LINK FIX */}
+        {tool.link ? (
+          <a
+            href={tool.link.startsWith("http") ? tool.link : `https://${tool.link}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block px-6 py-3 bg-purple-600 hover:bg-purple-700 rounded-lg transition"
+          >
+            Siteye Git →
+          </a>
+        ) : (
+          <p className="text-red-400">Link bulunamadı</p>
+        )}
 
       </div>
     </div>
