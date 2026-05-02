@@ -69,37 +69,38 @@ const matchSearch =
   onChange={(e) => setSearch(e.target.value)}
   className="w-full max-w-xl mx-auto block p-4 mb-10 rounded-xl bg-gray-800/60 backdrop-blur-md border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
 />
-<div className="mb-8">
-  <h2 className="text-xl mb-4 text-gray-300">
-    Popüler kategoriler
-  </h2>
+<div className="flex justify-center flex-wrap gap-2 mb-10">
 
-  <div className="flex justify-center flex-wrap gap-3 mb-10">
+  {["All", "Yazı", "Görsel", "Video", "Ses", "Kod"].map((cat) => (
     <button
-      onClick={() => setSearch("görsel")}
-      className="px-4 py-2 rounded-lg transition hover:scale-105 bg-white/10 hover:bg-white/20"
+      key={cat}
+      onClick={() => setSelectedCategory(cat)}
+      className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200
+        ${
+          selectedCategory === cat
+            ? "bg-purple-600 text-white shadow-md shadow-purple-500/30 scale-105"
+            : "bg-white/10 text-gray-300 hover:bg-white/20 hover:text-white"
+        }`}
     >
-      🎨 Görsel Oluştur
+      {cat}
     </button>
+  ))}
 
-    <button
-      onClick={() => setSearch("video")}
-      className="px-4 py-2 rounded-lg transition hover:scale-105 bg-white/10 hover:bg-white/20"
-    >
-      🎥 Video Üret
-    </button>
-
-    <button
-      onClick={() => setSearch("yazı")}
-      className="px-4 py-2 rounded-lg transition hover:scale-105 bg-white/10 hover:bg-white/20"
-    >
-      ✍️ Yazı Yaz
-    </button>
-  </div>
 </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 px-4">
-        {filteredTools.map(tool => (
+        {tools
+  .filter((tool) => {
+    const matchesCategory =
+      selectedCategory === "All" || tool.category === selectedCategory;
+
+    const matchesSearch =
+      tool.name.toLowerCase().includes(search.toLowerCase()) ||
+      tool.description.toLowerCase().includes(search.toLowerCase());
+
+    return matchesCategory && matchesSearch;
+  })
+  .map((tool) => (
           <div
   key={tool.id}
   className="bg-gray-800/60 backdrop-blur-md border border-gray-700 rounded-2xl p-5 transition transform hover:scale-105 hover:shadow-xl hover:shadow-purple-500/20"
