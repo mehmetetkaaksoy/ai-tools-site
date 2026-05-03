@@ -5,6 +5,7 @@ import { db } from "../../../lib/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { useParams } from "next/navigation";
 import Link from "next/link";
+import { collection, getDocs } from "firebase/firestore";
 
 type Tool = {
   name: string;
@@ -20,21 +21,33 @@ type Tool = {
 export default function ToolPage() {
   const params = useParams();
   const id = params?.id as string;
-
   const [tool, setTool] = useState<Tool | null>(null);
+  const [tools, setTools] = useState<any[]>([]);
 
   useEffect(() => {
-    const getTool = async () => {
-      const docRef = doc(db, "tools", id);
-      const docSnap = await getDoc(docRef);
+  const getData = async () => {
 
-      if (docSnap.exists()) {
-        setTool(docSnap.data() as Tool);
-      }
-    };
+    // 🔥 1. SEÇİLİ TOOL
+    const docRef = doc(db, "tools", id);
+    const docSnap = await getDoc(docRef);
 
-    if (id) getTool();
-  }, [id]);
+    if (docSnap.exists()) {
+      setTool(docSnap.data() as Tool);
+    }
+
+    // 🔥 2. TÜM TOOL'LAR (BUNU EKLEDİK)
+    const querySnapshot = await getDocs(collection(db, "tools"));
+    const allTools = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+
+    setTools(allTools);
+  };
+
+  if (id) getData();
+}, [id]);
+
 
   if (!tool) {
     return (
@@ -43,6 +56,18 @@ export default function ToolPage() {
       </div>
     );
   }
+  
+  const relatedTools = tools
+  .filter((t) => t.id !== id)
+  .filter((t) => {
+    const sameCategory = t.category === tool?.category;
+
+    const sharedTags =
+      t.tags?.some((tag: string) => tool?.tags?.includes(tag));
+
+    return sameCategory || sharedTags;
+  })
+  .slice(0, 4);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-gray-800 text-white px-6 py-16 flex justify-center">
@@ -124,6 +149,35 @@ export default function ToolPage() {
         ) : (
           <p className="text-red-400">Link bulunamadı</p>
         )}
+
+        {relatedTools.length > 0 && (
+  <div className="mt-12">
+
+    <h2 className="text-xl font-semibold mb-4 text-white">
+      Benzer Araçlar
+    </h2>
+
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+      {relatedTools.map((t) => (
+        <a
+          key={t.id}
+          href={`/tool/${t.id}`}
+          className="p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition"
+        >
+          <h3 className="font-semibold text-white mb-1">
+            {t.name}
+          </h3>
+
+          <p className="text-sm text-gray-400">
+            {t.description}
+          </p>
+        </a>
+      ))}
+
+    </div>
+  </div>
+)}
 
       </div>
     </div>
