@@ -96,8 +96,18 @@ const filteredTools = tools.filter((tool) => {
         {filteredTools.map((tool) => (
           <div
   key={tool.id}
-  className="bg-gray-800/60 backdrop-blur-md border border-gray-700 rounded-2xl p-5 transition transform hover:scale-105 hover:shadow-xl hover:shadow-purple-500/20"
+  className="relative bg-gray-800/60 backdrop-blur-md border border-gray-700 rounded-2xl p-5 
+  transition-all duration-300 
+hover:-translate-y-2 hover:scale-[1.02] 
+hover:shadow-xl hover:shadow-purple-500/20"
 >
+<div className="absolute top-3 right-3 text-xs px-2 py-1 rounded-full bg-purple-500/20 text-purple-300 hover:scale-105 transition">
+  {tool.category === "Video" && "🎥 Video"}
+  {tool.category === "Görsel" && "🎨 Görsel"}
+  {tool.category === "Yazı" && "✍️ Yazı"}
+  {tool.category === "Kod" && "💻 Kod"}
+  {tool.category === "Ses" && "🎤 Ses"}
+</div>
   <h3 className="text-xl font-semibold mb-2">
     {tool.name}
   </h3>
