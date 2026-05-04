@@ -1,11 +1,14 @@
 import { db } from "@/lib/firebase";
 import { doc, getDoc } from "firebase/firestore";
+import { NextRequest } from "next/server";
 
 export async function GET(
-  req: Request,
-  { params }: { params: { id: string } }
+  request: NextRequest,
+  context: { params: Promise<{ id: string }> }
 ) {
-  const docRef = doc(db, "tools", params.id);
+  const { id } = await context.params;
+
+  const docRef = doc(db, "tools", id);
   const docSnap = await getDoc(docRef);
 
   if (!docSnap.exists()) {
