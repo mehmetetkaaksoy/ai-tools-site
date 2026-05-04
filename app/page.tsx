@@ -1,16 +1,16 @@
 import HomeClient from "./HomeClient";
 
 export const metadata = {
-  title: "AI Tools - En iyi yapay zeka araçları",
+  title: "En İyi AI Araçları (2026) | Yazı, Görsel, Video AI Tools",
   description:
-    "Yazı, video, görsel ve kod için en iyi AI araçlarını keşfet. ChatGPT, Midjourney, Runway ve daha fazlası burada.",
+    "ChatGPT, Midjourney, Runway ve daha fazlası. En iyi yapay zeka araçlarını kategorilere göre keşfet.",
   keywords: [
-    "ai tools",
-    "yapay zeka araçları",
-    "chatgpt alternatifleri",
-    "ai video",
-    "ai image",
-  ],
+  "en iyi ai tools",
+  "yapay zeka araçları 2026",
+  "chatgpt alternatifleri",
+  "ai video oluşturma",
+  "ai görsel oluşturma",
+],
 };
 
 export default function Page() {
