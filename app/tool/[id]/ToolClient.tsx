@@ -108,7 +108,7 @@ export default function ToolPage() {
         {tool.longDescription && (
           <div className="mb-8">
             <h2 className="text-xl font-semibold mb-2">Detaylı Açıklama</h2>
-            <p className="text-gray-300 leading-relaxed">
+            <p className="text-gray-300 leading-relaxed whitespace-pre-line">
               {tool.longDescription}
             </p>
           </div>
