@@ -55,21 +55,24 @@ const filteredTools = tools.filter((tool) => {
 });
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-gray-800 text-white flex flex-col items-center pt-16">
+    <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-gray-800 text-white flex flex-col items-center pt-16 ">
       
       {/* 🔥 NAVBAR */}
       
-      <h1 className="text-4xl md:text-5xl font-bold leading-tight py-2 text-center bg-gradient-to-r from-purple-400 to-blue-500 text-transparent bg-clip-text">
+      <h1 className="text-4xl md:text-6xl font-bold leading-tight py-2 text-center bg-gradient-to-r from-purple-400 to-blue-500 text-transparent bg-clip-text">
   🚀 En İyi Yapay Zeka Araçları 2026
 </h1>
-      
+    
+    <p className="text-gray-400 mt-4 text-lg">
+    Yazı, görsel, video, ses ve kod için en güçlü AI araçlarını keşfet.
+  </p>  
 
       <input
   type="text"
-  placeholder="AI aracı ara... (logo, video, yazı...)"
+  placeholder="AI aracı ara... (görsel, video, yazı...)"
   value={search}
   onChange={(e) => setSearch(e.target.value)}
-  className="w-full max-w-xl mx-auto block p-4 mb-10 rounded-xl bg-gray-800/60 backdrop-blur-md border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
+  className="mt-6 w-full max-w-xl mx-auto block p-4 mb-10 rounded-xl bg-gray-800/60 backdrop-blur-md border border-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:scale-[1.01] shadow-lg focus:shadow-purple-500/50 transition-all duration-300"
 />
 <div className="flex justify-center flex-wrap gap-2 mb-10">
 
@@ -87,7 +90,6 @@ const filteredTools = tools.filter((tool) => {
       {cat}
     </button>
   ))}
-
 </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 px-4">
