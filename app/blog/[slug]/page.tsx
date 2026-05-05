@@ -18,7 +18,7 @@ export default async function Page({ params }: any) {
     {blog.description}
   </p>
 
-  <div className="space-y-4">
+  <div className="bg-gray-900/60 backdrop-blur-md border border-gray-700 rounded-2xl p-6 leading-8 text-gray-200 whitespace-pre-line space-y-4">
   {blog.content.split("\n").map((line, i) => (
     <p key={i}>{line}</p>
   ))}
