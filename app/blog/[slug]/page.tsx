@@ -9,14 +9,20 @@ export default async function Page({ params }: any) {
   if (!blog) return notFound();
 
   return (
-    <div className="min-h-screen bg-black text-white p-10">
-      <h1 className="text-4xl font-bold mb-4">{blog.title}</h1>
+    <div className="max-w-3xl mx-auto">
+  <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-purple-400 to-blue-500 text-transparent bg-clip-text">
+    {blog.title}
+  </h1>
 
-      <p className="text-gray-400 mb-6">{blog.description}</p>
+  <p className="text-gray-400 mb-8 text-lg">
+    {blog.description}
+  </p>
 
-      <div className="whitespace-pre-line text-gray-200">
-        {blog.content}
-      </div>
-    </div>
+  <div className="space-y-4">
+  {blog.content.split("\n").map((line, i) => (
+    <p key={i}>{line}</p>
+  ))}
+</div>
+</div>
   );
 }
