@@ -56,7 +56,14 @@ const filteredTools = tools.filter((tool) => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-gray-800 text-white flex flex-col items-center pt-16 ">
-      
+      <div className="w-full flex justify-end px-6 pt-2">
+  <Link
+    href="/blog"
+    className="px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-700 transition text-sm"
+  >
+    Blog
+  </Link>
+</div>
       {/* 🔥 NAVBAR */}
       
       <h1 className="text-4xl md:text-6xl font-bold leading-tight py-2 text-center bg-gradient-to-r from-purple-400 to-blue-500 text-transparent bg-clip-text">
