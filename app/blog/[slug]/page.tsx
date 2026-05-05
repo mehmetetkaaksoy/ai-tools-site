@@ -1,6 +1,19 @@
 import { blogs } from "../../../lib/blog";
 import { notFound } from "next/navigation";
 
+export const metadata = {
+  title: "AI Blog Yazısı | Yapay Zeka Rehberleri",
+  description:
+    "Yapay zeka araçları, ChatGPT alternatifleri, AI ile içerik üretimi ve para kazanma hakkında detaylı rehberler.",
+  keywords: [
+    "AI araçları",
+    "yapay zeka rehberi",
+    "ai içerik üretimi",
+    "chatgpt kullanımı",
+    "ai öğrenme",
+  ],
+};
+
 export default async function Page({ params }: any) {
   const { slug } = await params; // 🔥 KRİTİK
 

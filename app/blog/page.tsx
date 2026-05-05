@@ -1,6 +1,19 @@
 import Link from "next/link";
 import { blogs } from "../../lib/blog";
 
+export const metadata = {
+  title: "AI Blog | En İyi Yapay Zeka Rehberleri",
+  description:
+    "Yapay zeka araçları, ChatGPT alternatifleri, AI ile para kazanma ve daha fazlası hakkında rehberler.",
+  keywords: [
+    "AI araçları",
+    "yapay zeka blog",
+    "chatgpt alternatifleri",
+    "ai ile para kazanma",
+    "ai rehber",
+  ],
+};
+
 export default function BlogPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-gray-800 text-white p-10">
