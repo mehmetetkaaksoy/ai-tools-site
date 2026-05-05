@@ -5,7 +5,7 @@ export default function BlogPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-gray-800 text-white p-10">
 
-      <h1 className="text-4xl md:text-6xl font-bold mb-4 text-center bg-gradient-to-r from-purple-400 to-blue-500 text-transparent bg-clip-text">
+      <h1 className="text-4xl md:text-6xl font-bold mt-10 mb-6 text-center bg-gradient-to-r from-purple-400 to-blue-500 text-transparent bg-clip-text">
         🧠 AI Blog
       </h1>
 
