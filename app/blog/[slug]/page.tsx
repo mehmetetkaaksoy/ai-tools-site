@@ -1,8 +1,10 @@
 import { blogs } from "../../../lib/blog";
 import { notFound } from "next/navigation";
 
-export default function BlogDetail({ params }: any) {
-  const blog = blogs.find((b) => b.slug === params.slug);
+export default async function Page({ params }: any) {
+  const { slug } = await params; // 🔥 KRİTİK
+
+  const blog = blogs.find((b) => b.slug === slug);
 
   if (!blog) return notFound();
 
@@ -12,7 +14,7 @@ export default function BlogDetail({ params }: any) {
 
       <p className="text-gray-400 mb-6">{blog.description}</p>
 
-      <div className="whitespace-pre-line text-gray-200 leading-7">
+      <div className="whitespace-pre-line text-gray-200">
         {blog.content}
       </div>
     </div>
