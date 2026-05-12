@@ -3,6 +3,8 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { db } from "../lib/firebase";
 import { collection, getDocs } from "firebase/firestore";
+import { signInWithPopup, signOut, onAuthStateChanged } from "firebase/auth";
+import { auth, provider } from "../lib/firebase";
 
 type Tool = {
   id: string;
@@ -17,10 +19,12 @@ export default function Home() {
   const [tools, setTools] = useState<Tool[]>([]);
   const [search, setSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [user, setUser] = useState<any>(null);
 
   useEffect(() => {
     const fetchTools = async () => {
       const snapshot = await getDocs(collection(db, "tools"));
+
 
       const data = snapshot.docs.map(doc => ({
         id: doc.id,
@@ -31,7 +35,27 @@ export default function Home() {
     };
 
     fetchTools();
+
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    setUser(currentUser);
+  });
+
+  return () => unsubscribe();
+
   }, []);
+
+  const handleGoogleLogin = async () => {
+  try {
+    await signInWithPopup(auth, provider);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const handleLogout = async () => {
+  await signOut(auth);
+};
+
   const stopWords = ["yapmak", "etmek", "istiyorum", "için"];
 
 const words = search
@@ -56,6 +80,33 @@ const filteredTools = tools.filter((tool) => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-gray-800 text-white flex flex-col items-center pt-16 ">
+      
+      <div className="absolute top-5 right-5">
+  {user ? (
+    <div className="flex items-center gap-3">
+      <img
+        src={user.photoURL}
+        alt="profile"
+        className="w-10 h-10 rounded-full"
+      />
+
+      <button
+        onClick={handleLogout}
+        className="bg-red-500 px-4 py-2 rounded-xl"
+      >
+        Logout
+      </button>
+    </div>
+  ) : (
+    <button
+      onClick={handleGoogleLogin}
+      className="bg-gradient-to-r from-purple-600 to-blue-600 px-5 py-2 rounded-xl hover:scale-105 transition"
+    >
+      Sign in with Google
+    </button>
+  )}
+</div>
+
       <div className="fixed top-4 right-6 z-50">
   <Link
     href="/blog"
