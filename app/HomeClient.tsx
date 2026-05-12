@@ -81,7 +81,7 @@ const filteredTools = tools.filter((tool) => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-gray-800 text-white flex flex-col items-center pt-16 ">
       
-      <div className="absolute top-5 right-5">
+      <div className="absolute top-5 right-44">
   {user ? (
     <div className="flex items-center gap-3">
       <img
