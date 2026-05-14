@@ -23,8 +23,30 @@ export default function Home() {
   const [favorites, setFavorites] = useState<string[]>([]);
 
   useEffect(() => {
-    
-     if (!user) return;
+  const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    setUser(currentUser);
+  });
+
+  return () => unsubscribe();
+}, []);
+
+useEffect(() => {
+  const fetchTools = async () => {
+    const snapshot = await getDocs(collection(db, "tools"));
+
+    const data = snapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    })) as Tool[];
+
+    setTools(data);
+  };
+
+  fetchTools();
+}, []);
+
+useEffect(() => {
+  if (!user) return;
 
   const fetchFavorites = async () => {
     const q = query(
@@ -40,31 +62,7 @@ export default function Home() {
   };
 
   fetchFavorites();
-
-
-    const fetchTools = async () => {
-      const snapshot = await getDocs(collection(db, "tools"));
-
-
-      const data = snapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data()
-      })) as Tool[];
-      
-      setTools(data);
-    };
-
-    fetchTools();
-
-    
-
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-    setUser(currentUser);
-  });
-
-  return () => unsubscribe();
-
-  }, [user]);
+}, [user]);
 
   const handleGoogleLogin = async () => {
   try {
@@ -80,7 +78,7 @@ const handleLogout = async () => {
 
 const toggleFavorite = async (toolId: string) => {
   if (!user) {
-    alert("Please sign in first");
+    alert("Lütfen önce giriş yapın");
     return;
   }
 
@@ -121,8 +119,6 @@ const words = search
   .split(" ")
   .map(w => w.trim())
   .filter(w => w && !stopWords.includes(w));
-
-{JSON.stringify(tools)}
 
 const filteredTools = tools.filter((tool) => {
   const text = `${tool.name} ${tool.description} ${(tool.tags || []).join(" ")}`.toLowerCase();
