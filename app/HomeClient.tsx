@@ -27,12 +27,12 @@ export default function Home() {
     if (!user) return;
 
   const fetchFavorites = async () => {
-    const q = query(
+    const favoritesQuery = query(
       collection(db, "favorites"),
       where("userId", "==", user.uid)
     );
 
-    const snapshot = await getDocs(q);
+    const snapshot = await getDocs(favoritesQuery);
 
     const favs = snapshot.docs.map(
       (doc) => doc.data().toolId
@@ -87,13 +87,13 @@ const toggleFavorite = async (toolId: string) => {
     return;
   }
 
-  const q = query(
+  const favoritesQuery = query(
     collection(db, "favorites"),
     where("userId", "==", user.uid),
     where("toolId", "==", toolId)
   );
 
-  const snapshot = await getDocs(q);
+  const snapshot = await getDocs(favoritesQuery);
 
   if (!snapshot.empty) {
     await deleteDoc(doc(db, "favorites", snapshot.docs[0].id));
