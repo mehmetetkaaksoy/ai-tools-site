@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { db } from "../lib/firebase";
-import { collection, getDocs, addDoc } from "firebase/firestore";
+import { collection, getDocs, addDoc, query, where, deleteDoc, doc, } from "firebase/firestore";
 import { signInWithPopup, signOut, onAuthStateChanged } from "firebase/auth";
 import { auth, provider } from "../lib/firebase";
 
@@ -24,26 +24,22 @@ export default function Home() {
 
   useEffect(() => {
     
-    ///if (!user) return;
+     if (!user) return;
 
-  ///const fetchFavorites = async () => {
-    ///const favoritesQuery = query(
-      ///collection(db, "favorites"),
-      ///where("userId", "==", user.uid)
-    ///);
+  const fetchFavorites = async () => {
+    const q = query(
+      collection(db, "favorites"),
+      where("userId", "==", user.uid)
+    );
 
-    ///const snapshot = await getDocs(favoritesQuery);
+    const snapshot = await getDocs(q);
 
-    ///const favs = snapshot.docs.map(
-      ///(doc) => doc.data().toolId
-    ///);
+    const favs = snapshot.docs.map((doc) => doc.data().toolId);
 
-    ///setFavorites(favs);
-  ///};
+    setFavorites(favs);
+  };
 
-  ///fetchFavorites();
-  
-
+  fetchFavorites();
 
 
     const fetchTools = async () => {
@@ -68,7 +64,7 @@ export default function Home() {
 
   return () => unsubscribe();
 
-  }, []);
+  }, [user]);
 
   const handleGoogleLogin = async () => {
   try {
@@ -88,42 +84,35 @@ const toggleFavorite = async (toolId: string) => {
     return;
   }
 
-  if (favorites.includes(toolId)) {
-    setFavorites(favorites.filter((id) => id !== toolId));
-  } else {
-    setFavorites([...favorites, toolId]);
+  const q = query(
+    collection(db, "favorites"),
+    where("userId", "==", user.uid),
+    where("toolId", "==", toolId)
+  );
 
+  const snapshot = await getDocs(q);
+
+  // ❌ varsa sil
+  if (!snapshot.empty) {
+    await deleteDoc(doc(db, "favorites", snapshot.docs[0].id));
+
+    setFavorites((prev) =>
+      prev.filter((id) => id !== toolId)
+    );
+  } 
+  // ✅ yoksa ekle
+  else {
     await addDoc(collection(db, "favorites"), {
       userId: user.uid,
       toolId,
       createdAt: Date.now(),
     });
+
+    setFavorites((prev) => [...prev, toolId]);
   }
 };
 
-  ///const favoritesQuery = query(
-    ///collection(db, "favorites"),
-    ///where("userId", "==", user.uid),
-    ///where("toolId", "==", toolId)
-  ///);
-
-  ///const snapshot = await getDocs(favoritesQuery);
-
-  ///if (!snapshot.empty) {
-    ///await deleteDoc(doc(db, "favorites", snapshot.docs[0].id));
-
-    ///setFavorites((prev) =>
-      ///prev.filter((id) => id !== String(toolId))
-    ///);
-  ///} else {
-    ///await addDoc(collection(db, "favorites"), {
-      ///userId: user.uid,
-      ///toolId: String(toolId),
-    ///});
-
-    ///setFavorites((prev) => [...prev, String(toolId)]);
-  ///}
-///};
+  
 
   const stopWords = ["yapmak", "etmek", "istiyorum", "için"];
 
