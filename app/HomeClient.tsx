@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { db } from "../lib/firebase";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, addDoc, query, where, deleteDoc, doc } from "firebase/firestore";
 import { signInWithPopup, signOut, onAuthStateChanged } from "firebase/auth";
 import { auth, provider } from "../lib/firebase";
 
@@ -20,8 +20,31 @@ export default function Home() {
   const [search, setSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [user, setUser] = useState<any>(null);
+  const [favorites, setFavorites] = useState<string[]>([]);
 
   useEffect(() => {
+
+    if (!user) return;
+
+  const fetchFavorites = async () => {
+    const q = query(
+      collection(db, "favorites"),
+      where("userId", "==", user.uid)
+    );
+
+    const snapshot = await getDocs(q);
+
+    const favs = snapshot.docs.map(
+      (doc) => doc.data().toolId
+    );
+
+    setFavorites(favs);
+  };
+
+  fetchFavorites();
+
+
+
     const fetchTools = async () => {
       const snapshot = await getDocs(collection(db, "tools"));
 
@@ -36,13 +59,15 @@ export default function Home() {
 
     fetchTools();
 
+    
+
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
     setUser(currentUser);
   });
 
   return () => unsubscribe();
 
-  }, []);
+  }, [user]);
 
   const handleGoogleLogin = async () => {
   try {
@@ -54,6 +79,36 @@ export default function Home() {
 
 const handleLogout = async () => {
   await signOut(auth);
+};
+
+const toggleFavorite = async (toolId: string) => {
+  if (!user) {
+    alert("Please sign in first");
+    return;
+  }
+
+  const q = query(
+    collection(db, "favorites"),
+    where("userId", "==", user.uid),
+    where("toolId", "==", toolId)
+  );
+
+  const snapshot = await getDocs(q);
+
+  if (!snapshot.empty) {
+    await deleteDoc(doc(db, "favorites", snapshot.docs[0].id));
+
+    setFavorites((prev) =>
+      prev.filter((id) => id !== toolId)
+    );
+  } else {
+    await addDoc(collection(db, "favorites"), {
+      userId: user.uid,
+      toolId,
+    });
+
+    setFavorites((prev) => [...prev, toolId]);
+  }
 };
 
   const stopWords = ["yapmak", "etmek", "istiyorum", "için"];
@@ -188,6 +243,13 @@ hover:shadow-xl hover:shadow-purple-500/20"
       </span>
     ))}
   </div>
+  
+  <button
+  onClick={() => toggleFavorite(tool.id)}
+  className="mt-4 text-2xl"
+>
+  {favorites.includes(tool.id) ? "❤️" : "🤍"}
+</button>
 
   <Link
     href={`/tool/${tool.id}`}
