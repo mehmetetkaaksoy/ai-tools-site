@@ -119,6 +119,8 @@ const words = search
   .map(w => w.trim())
   .filter(w => w && !stopWords.includes(w));
 
+{JSON.stringify(tools)}
+
 const filteredTools = tools.filter((tool) => {
   const text = `${tool.name} ${tool.description} ${(tool.tags || []).join(" ")}`.toLowerCase();
 
@@ -248,7 +250,7 @@ hover:shadow-xl hover:shadow-purple-500/20"
   onClick={() => toggleFavorite(tool.id)}
   className="mt-4 text-2xl"
 >
-  {favorites.includes(String(tool.id)) ? "❤️" : "🤍"}
+  ❤️
 </button>
 
   <Link
