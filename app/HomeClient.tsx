@@ -20,7 +20,7 @@ export default function Home() {
   const [search, setSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [user, setUser] = useState<any>(null);
-  //const [favorites, setFavorites] = useState<string[]>([]);
+  const [favorites, setFavorites] = useState<string[]>([]);
 
   useEffect(() => {
     
@@ -82,11 +82,13 @@ const handleLogout = async () => {
   await signOut(auth);
 };
 
-///const toggleFavorite = async (toolId: string) => {
-  ///if (!user) {
-    ///alert("Lütfen önce giriş yapın");
-    ///return;
-  ///}
+const toggleFavorite = (toolId: string) => {
+  if (favorites.includes(toolId)) {
+    setFavorites(favorites.filter((id) => id !== toolId));
+  } else {
+    setFavorites([...favorites, toolId]);
+  }
+};
 
   ///const favoritesQuery = query(
     ///collection(db, "favorites"),
@@ -247,6 +249,12 @@ hover:shadow-xl hover:shadow-purple-500/20"
     ))}
   </div>
   
+  <button
+  onClick={() => toggleFavorite(String(tool.id))}
+  className="mt-4 text-2xl"
+>
+  {favorites.includes(String(tool.id)) ? "❤️" : "🤍"}
+</button>
 
   <Link
     href={`/tool/${tool.id}`}
