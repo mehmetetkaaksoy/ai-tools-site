@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { db } from "../lib/firebase";
-import { collection, getDocs, addDoc, query, where, deleteDoc, doc } from "firebase/firestore";
+import { collection, getDocs, addDoc } from "firebase/firestore";
 import { signInWithPopup, signOut, onAuthStateChanged } from "firebase/auth";
 import { auth, provider } from "../lib/firebase";
 
@@ -82,11 +82,22 @@ const handleLogout = async () => {
   await signOut(auth);
 };
 
-const toggleFavorite = (toolId: string) => {
+const toggleFavorite = async (toolId: string) => {
+  if (!user) {
+    alert("Please sign in first");
+    return;
+  }
+
   if (favorites.includes(toolId)) {
     setFavorites(favorites.filter((id) => id !== toolId));
   } else {
     setFavorites([...favorites, toolId]);
+
+    await addDoc(collection(db, "favorites"), {
+      userId: user.uid,
+      toolId,
+      createdAt: Date.now(),
+    });
   }
 };
 
