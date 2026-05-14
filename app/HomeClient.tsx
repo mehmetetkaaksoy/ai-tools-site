@@ -83,7 +83,7 @@ const handleLogout = async () => {
 
 const toggleFavorite = async (toolId: string) => {
   if (!user) {
-    alert("Please sign in first");
+    alert("Lütfen önce giriş yapın");
     return;
   }
 
@@ -99,15 +99,15 @@ const toggleFavorite = async (toolId: string) => {
     await deleteDoc(doc(db, "favorites", snapshot.docs[0].id));
 
     setFavorites((prev) =>
-      prev.filter((id) => id !== toolId)
+      prev.filter((id) => id !== String(toolId))
     );
   } else {
     await addDoc(collection(db, "favorites"), {
       userId: user.uid,
-      toolId,
+      toolId: String(toolId),
     });
 
-    setFavorites((prev) => [...prev, toolId]);
+    setFavorites((prev) => [...prev, String(toolId)]);
   }
 };
 
@@ -248,7 +248,7 @@ hover:shadow-xl hover:shadow-purple-500/20"
   onClick={() => toggleFavorite(tool.id)}
   className="mt-4 text-2xl"
 >
-  {favorites.includes(tool.id) ? "❤️" : "🤍"}
+  {favorites.includes(String(tool.id)) ? "❤️" : "🤍"}
 </button>
 
   <Link
