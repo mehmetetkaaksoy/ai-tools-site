@@ -137,7 +137,18 @@ const filteredTools = tools.filter((tool) => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-gray-800 text-white flex flex-col items-center pt-16 ">
       
-      <div className="absolute top-5 right-6">
+      <div className="fixed top-5 right-96 z-50">
+  <Link
+    href="/favorites"
+    className="flex items-center gap-2 px-4 py-2 rounded-xl 
+    bg-gradient-to-r from-pink-600 to-red-600 
+    hover:scale-105 transition"
+  >
+    ❤️ Favoriler
+  </Link>
+</div>
+
+      <div className="fixed top-5 right-6 z-50">
   {user ? (
     <div className="flex items-center gap-3">
       <img
@@ -175,6 +186,7 @@ const filteredTools = tools.filter((tool) => {
     🧠 Blog
   </Link>
 </div>
+
       {/* 🔥 NAVBAR */}
       
       <h1 className="text-4xl md:text-6xl font-bold leading-tight py-2 text-center bg-gradient-to-r from-purple-400 to-blue-500 text-transparent bg-clip-text">
