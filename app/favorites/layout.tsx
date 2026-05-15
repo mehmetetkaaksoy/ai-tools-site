@@ -5,3 +5,11 @@ export const metadata: Metadata = {
   description:
     "Yazma, kodlama, görseller, videolar ve daha fazlası için favori AI araçlarınızı kaydedin ve yönetin.",
 };
+
+export default function FavoritesLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return <>{children}</>;
+}
