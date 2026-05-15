@@ -163,7 +163,7 @@ const filteredTools = tools.filter((tool) => {
   )}
 </div>
 
-      <div className="fixed top-5 right-50 z-50">
+      <div className="fixed top-5 right-66 z-50">
   <Link
     href="/blog"
     className="flex items-center gap-2 px-4 py-2 rounded-xl 
