@@ -137,7 +137,7 @@ const filteredTools = tools.filter((tool) => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-gray-800 text-white flex flex-col items-center pt-16 ">
       
-      <div className="absolute top-5 right-40">
+      <div className="absolute top-5 right-6">
   {user ? (
     <div className="flex items-center gap-3">
       <img
@@ -150,7 +150,7 @@ const filteredTools = tools.filter((tool) => {
         onClick={handleLogout}
         className="bg-red-500 px-4 py-2 rounded-xl"
       >
-        Çıkış yap
+        🚪 Çıkış yap
       </button>
     </div>
   ) : (
@@ -158,12 +158,12 @@ const filteredTools = tools.filter((tool) => {
       onClick={handleGoogleLogin}
       className="bg-gradient-to-r from-purple-600 to-blue-600 px-5 py-2 rounded-xl hover:scale-105 transition"
     >
-      Google ile giriş yapın
+      🔐 Google ile giriş yapın
     </button>
   )}
 </div>
 
-      <div className="fixed top-5 right-6 z-50">
+      <div className="fixed top-5 right-36 z-50">
   <Link
     href="/blog"
     className="flex items-center gap-2 px-4 py-2 rounded-xl 
