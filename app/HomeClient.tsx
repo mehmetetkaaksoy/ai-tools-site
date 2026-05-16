@@ -5,6 +5,7 @@ import { db } from "../lib/firebase";
 import { collection, getDocs, addDoc, query, where, deleteDoc, doc, } from "firebase/firestore";
 import { signInWithPopup, signOut, onAuthStateChanged } from "firebase/auth";
 import { auth, provider } from "../lib/firebase";
+import toast from "react-hot-toast";
 
 type Tool = {
   id: string;
@@ -107,6 +108,8 @@ const toggleFavorite = async (toolId: string) => {
     });
 
     setFavorites((prev) => [...prev, toolId]);
+
+    toast.success("Favorilere eklendi ❤️");
   }
 };
 
@@ -259,7 +262,7 @@ hover:shadow-xl hover:shadow-purple-500/20"
   
   <button
   onClick={() => toggleFavorite(String(tool.id))}
-  className="mt-4 text-2xl"
+  className={`mt-4 text-2xl transition-transform duration-200 hover:scale-125 active:scale-90 drop-shadow-[0_0_10px_rgba(255,0,100,0.6)]`}
 >
   {favorites.includes(String(tool.id)) ? "❤️" : "🤍"}
 </button>

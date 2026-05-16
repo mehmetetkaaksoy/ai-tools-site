@@ -5,6 +5,7 @@ import { db, auth } from "@/lib/firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import { collection, query, where, getDocs, deleteDoc, doc } from "firebase/firestore";
 import Link from "next/link";
+import toast from "react-hot-toast";
 
 type Tool = {
   id: string;
@@ -101,6 +102,8 @@ export default function FavoritesPage() {
     setTools((prev) =>
       prev.filter((tool) => tool.id !== toolId)
     );
+    
+    toast.success("Favorilerden kaldırıldı ❤️‍🩹");
   }
 };
 
