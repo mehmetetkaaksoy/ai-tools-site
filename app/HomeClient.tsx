@@ -231,7 +231,7 @@ const filteredTools = tools.filter((tool) => {
         {filteredTools.map((tool) => (
           <div
   key={tool.id}
-  className="relative bg-gray-800/60 backdrop-blur-md border border-gray-700 rounded-2xl p-5 pt-10 
+  className="relative bg-gray-800/60 backdrop-blur-md border border-gray-700 rounded-2xl p-5 pt-15 
   transition-all duration-300 
 hover:-translate-y-2 hover:scale-[1.02] 
 hover:shadow-xl hover:shadow-purple-500/20"
