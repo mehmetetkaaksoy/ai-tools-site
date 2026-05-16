@@ -75,6 +75,8 @@ useEffect(() => {
 
 const handleLogout = async () => {
   await signOut(auth);
+
+  setFavorites([]);
 };
 
 const toggleFavorite = async (toolId: string) => {
@@ -234,6 +236,23 @@ const filteredTools = tools.filter((tool) => {
 hover:-translate-y-2 hover:scale-[1.02] 
 hover:shadow-xl hover:shadow-purple-500/20"
 >
+
+<button
+  onClick={() => toggleFavorite(String(tool.id))}
+  className={`
+    absolute top-3 left-3 text-2xl 
+    bg-black/30 backdrop-blur-md 
+    rounded-full p-1.5 
+    transition-all duration-200 transition-colors
+    hover:scale-125 active:scale-90
+    ${favorites.includes(String(tool.id))
+      ? "drop-shadow-[0_0_10px_rgba(255,0,100,0.6)]"
+      : ""}
+  `}
+>
+  {favorites.includes(String(tool.id)) ? "❤️" : "🤍"}
+</button>
+
 <div className="absolute top-3 right-3 text-xs px-2 py-1 rounded-full bg-purple-500/20 text-purple-300 hover:scale-105 transition">
   {tool.category === "Video" && "🎥 Video"}
   {tool.category === "Görsel" && "🎨 Görsel"}
@@ -259,13 +278,6 @@ hover:shadow-xl hover:shadow-purple-500/20"
       </span>
     ))}
   </div>
-  
-  <button
-  onClick={() => toggleFavorite(String(tool.id))}
-  className={`mt-4 text-2xl transition-transform duration-200 hover:scale-125 active:scale-90 drop-shadow-[0_0_10px_rgba(255,0,100,0.6)]`}
->
-  {favorites.includes(String(tool.id)) ? "❤️" : "🤍"}
-</button>
 
   <Link
     href={`/tool/${tool.id}`}
