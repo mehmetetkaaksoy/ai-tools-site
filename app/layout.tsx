@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "AIXplorerHub",
-  description: "En iyi yapay zeka araçlarını keşfet.",
+  description: "Discover the best AI tools.",
 
   verification: {
     google: "-wiK3t2ol9ubulwK44-eeah3cHsu8OQqILtO6-Ui-uI",
