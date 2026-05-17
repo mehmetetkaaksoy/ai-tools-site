@@ -22,6 +22,7 @@ export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [user, setUser] = useState<any>(null);
   const [favorites, setFavorites] = useState<string[]>([]);
+  const [visibleCount, setVisibleCount] = useState(9);
 
   useEffect(() => {
   const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -228,7 +229,7 @@ const filteredTools = tools.filter((tool) => {
 </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 px-4">
-        {filteredTools.map((tool) => (
+        {filteredTools.slice(0, visibleCount).map((tool) => (
           <div
   key={tool.id}
   className="relative bg-gray-800/60 backdrop-blur-md border border-gray-700 rounded-2xl p-5 pt-15 
@@ -288,6 +289,17 @@ hover:shadow-xl hover:shadow-purple-500/20"
 </div>
         ))}
       </div>
+
+      {visibleCount < filteredTools.length && (
+  <div className="flex justify-center mt-10">
+    <button
+      onClick={() => setVisibleCount((prev) => prev + 6)}
+      className="px-6 py-3 rounded-xl bg-purple-600 hover:bg-purple-500 transition shadow-lg"
+    >
+      Daha Fazla Yükle
+    </button>
+  </div>
+)}
 
       <footer className="mt-20 py-10 text-center text-gray-500 text-sm">
   
