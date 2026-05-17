@@ -288,6 +288,23 @@ hover:shadow-xl hover:shadow-purple-500/20"
 </div>
         ))}
       </div>
+
+      <footer className="mt-20 py-10 text-center text-gray-500 text-sm">
+  
+  <div className="flex justify-center gap-6 mb-4">
+    <Link href="/privacy" className="hover:text-white">
+      Privacy
+    </Link>
+
+    <Link href="/terms" className="hover:text-white">
+      Terms
+    </Link>
+  </div>
+
+  <p>© 2026 AIXplorerHub. All rights reserved.</p>
+
+</footer>
+
     </div>
   );
 }
