@@ -196,7 +196,7 @@ const filteredTools = tools.filter((tool) => {
       {/* 🔥 NAVBAR */}
       
       <h1 className="text-4xl md:text-6xl font-bold leading-tight py-2 text-center bg-gradient-to-r from-purple-400 to-blue-500 text-transparent bg-clip-text">
-  🚀 En İyi Yapay Zeka Araçları 2026
+  🚀 AIXplorerHub
 </h1>
     
     <p className="text-gray-400 mt-4 text-lg">
